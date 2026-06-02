@@ -1,1 +1,58 @@
-[]
+[
+  { 
+    "id": 1, 
+    "name": "Nairobi Fight Nights", 
+    "date": "2026-06-02", 
+    "venue": "The Alchemist Westlands", 
+    "price": 1500, 
+    "rating": 4.3 
+  },
+  { 
+    "id": 2, 
+    "name": "Blankets & Wine", 
+    "date": "2026-06-07", 
+    "venue": "Laureates Garden Kasarani", 
+    "price": 3500, 
+    "rating": 4.7 
+  },
+  { 
+    "id": 3, 
+    "name": "The Saturday Social", 
+    "date": "2026-06-27", 
+    "venue": "Ngong Racecourse", 
+    "price": 1900, 
+    "rating": 4.4 
+  },
+  { 
+    "id": 4, 
+    "name": "Masaku Sevens Rugby", 
+    "date": "2026-07-04", 
+    "venue": "Machakos Stadium", 
+    "price": 1000, 
+    "rating": 4.5 
+  },
+  { 
+    "id": 5, 
+    "name": "Agave Affair", 
+    "date": "2026-07-25", 
+    "venue": "KICC Grounds", 
+    "price": 2000, 
+    "rating": 4.2 
+  },
+  { 
+    "id": 6, 
+    "name": "Sol Fest", 
+    "date": "2026-12-19", 
+    "venue": "Uhuru Gardens Grounds", 
+    "price": 3526, 
+    "rating": 4.9 
+  },
+  { 
+    "id": 7, 
+    "name": "Beneath The Baobabs Festival", 
+    "date": "2026-12-30", 
+    "venue": "Kilifi Creek Grounds", 
+    "price": 6000, 
+    "rating": 4.8 
+  }
+]
