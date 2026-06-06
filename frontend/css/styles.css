@@ -1,0 +1,365 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+/* ── NAV ── */
+nav {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+nav .logo {
+  color: #f0c040;
+  font-size: 1.6rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+nav ul a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+nav ul a:hover {
+  color: #f0c040;
+  background-color: rgba(87, 12, 12, 0.05);
+}
+
+nav ul a.active-link {
+  color: #f0c040;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: white;
+  padding: 60px 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: #f0f2f5;
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.hero h1 span {
+  color: #f0c040;
+}
+
+.hero p {
+  font-size: 1rem;
+  color: #aaa;
+  margin-bottom: 25px;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat .num {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #f0c040;
+}
+
+.hero-stat .label {
+  font-size: 0.8rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── CONTROLS ── */
+.controls {
+  padding: 25px 30px 15px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.search-bar {
+  display: flex;
+  gap: 0;
+  max-width: 520px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1.5px solid #ccc;
+  transition: border-color 0.2s;
+}
+
+.search-bar:focus-within {
+  border-color: #1a1a2e;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px 14px;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  background-color: #1a1a2e;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.search-bar button:hover {
+  background-color: #f0c040;
+  color: #000;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filters span {
+  font-size: 0.82rem;
+  color: #888;
+  margin-right: 4px;
+}
+
+.filter-btn {
+  padding: 6px 16px;
+  border: 1.5px solid #ddd;
+  border-radius: 20px;
+  background: white;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-family: inherit;
+  color: #555;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #1a1a2e;
+  color: #1a1a2e;
+}
+
+.filter-btn.active {
+  background-color: #1a1a2e;
+  color: white;
+  border-color: #1a1a2e;
+}
+
+/* ── EVENTS SECTION ── */
+.events-section {
+  padding: 30px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  font-size: 1.2rem;
+  color: #1a1a2e;
+}
+
+.section-header h2 span {
+  font-size: 0.85rem;
+  color: #888;
+  font-weight: normal;
+  margin-left: 8px;
+}
+
+/* ── EVENT CARDS ── */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 20px;
+}
+
+.event-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  border: 1px solid #e8e8e8;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.card-banner {
+  height: 10px;
+}
+
+.card-banner.music    { background: linear-gradient(90deg, #e94560, #c62a47); }
+.card-banner.sports   { background: linear-gradient(90deg, #0f3460, #1a5276); }
+.card-banner.art      { background: linear-gradient(90deg, #8e44ad, #6c3483); }
+.card-banner.comedy   { background: linear-gradient(90deg, #f0c040, #d4a800); }
+.card-banner.conference { background: linear-gradient(90deg, #2196f3, #1565c0); }
+.card-banner.default  { background: linear-gradient(90deg, #1a1a2e, #16213e); }
+
+.card-header {
+  padding: 14px 16px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-header h3 {
+  font-size: 1.05rem;
+  color: #1a1a2e;
+  font-weight: 600;
+}
+
+.category-badge {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.category-badge.music      { background: #fde8ec; color: #c62a47; }
+.category-badge.sports     { background: #dbeafe; color: #1a5276; }
+.category-badge.art        { background: #f3e5f5; color: #6c3483; }
+.category-badge.comedy     { background: #090909; color: #ffd966; }
+.category-badge.conference { background: #e3f2fd; color: #1565c0; }
+.category-badge.default    { background: #eee;    color: #555; }
+
+.card-body {
+  padding: 4px 16px 12px;
+}
+
+.card-body p {
+  font-size: 0.83rem;
+  color: #666;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-top: 1px solid #f0f0f0;
+  background: #fafafa;
+}
+
+.price {
+  font-weight: bold;
+  color: #1a1a2e;
+  font-size: 1.05rem;
+}
+
+.seats {
+  font-size: 0.78rem;
+  color: #27ae60;
+  font-weight: 500;
+}
+
+.seats.low {
+  color: #e74c3c;
+}
+
+.btn-book {
+  padding: 8px 16px;
+  background-color: #f0c040;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.82rem;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.btn-book:hover {
+  background-color: #d4a800;
+}
+
+/* ── NO RESULTS ── */
+.no-results {
+  text-align: center;
+  padding: 50px 20px;
+  color: #aaa;
+  display: none;
+}
+
+.no-results p {
+  font-size: 1rem;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: #888;
+  text-align: center;
+  padding: 25px;
+  font-size: 0.82rem;
+  margin-top: 40px;
+}
+
+footer span {
+  color: #f0c040;
+}
