@@ -4,6 +4,7 @@
   "description": "A simple event ticketing system built with Node.js. Users can browse events, book seats, and manage their reservations.",
   "main": "index.js",
   "scripts": {
+    "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
