@@ -1,0 +1,25 @@
+{
+  "name": "tickets",
+  "version": "1.0.0",
+  "description": "A simple event ticketing system built with Node.js. Users can browse events, book seats, and manage their reservations.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Meshack-pi/tickets.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Meshack-pi/tickets/issues"
+  },
+  "homepage": "https://github.com/Meshack-pi/tickets#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}

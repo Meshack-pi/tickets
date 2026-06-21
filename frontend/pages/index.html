@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TicketHive - Home</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">🎟 TicketHive</div>
+    <ul>
+      <li><a href="index.html" class="active-link">Home</a></li>
+      <li><a href="event-details.html">Events</a></li>
+      <li><a href="booking.html">Book</a></li>
+      <li><a href="my-bookings.html">My Bookings</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Find Your Next <span>Event</span></h1>
+    <p>Browse concerts, sports, exhibitions and more. Book your seat in seconds.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">6</div>
+        <div class="label">Events</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">3</div>
+        <div class="label">Venues</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">487</div>
+        <div class="label">Seats Left</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH AND FILTERS -->
+  <div class="controls">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search by event, venue or category..." />
+      <button onclick="runSearch()">Search</button>
+    </div>
+    <div class="filters">
+      <span>Sort by:</span>
+      <button class="filter-btn active" onclick="sortEvents('default', this)">All</button>
+      <button class="filter-btn" onclick="sortEvents('price', this)">Price ↑</button>
+      <button class="filter-btn" onclick="sortEvents('date', this)">Date</button>
+      <button class="filter-btn" onclick="sortEvents('popularity', this)">🔥 Popular</button>
+    </div>
+  </div>
+
+  <!-- EVENTS LISTING -->
+  <div class="events-section">
+    <div class="section-header">
+      <h2>Upcoming Events <span id="eventCount">(6 found)</span></h2>
+    </div>
+    <div class="events-grid" id="eventsGrid"></div>
+    <div class="no-results" id="noResults">
+      <p>😕 No events found. Try a different search.</p>
+    </div>
+  </div>
+
+
+
+  <script src="app.js"></script>
+</body>
+</html>

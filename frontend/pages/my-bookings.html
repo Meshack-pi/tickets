@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TicketHive - My Bookings</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">🎟 TicketHive</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="event-details.html">Events</a></li>
+      <li><a href="booking.html">Book</a></li>
+      <li><a href="my-bookings.html" class="active-link">My Bookings</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">Home</a> / My Bookings</div>
+    <h1>My Bookings</h1>
+    <p>Look up or manage your existing bookings</p>
+  </div>
+
+  <div class="bookings-container">
+
+    <!-- LOOKUP CARD -->
+    <div class="lookup-card">
+      <h2>🔍 Look Up a Booking</h2>
+      <p style="font-size:0.85rem;color:#888;margin-bottom:15px">
+        Enter your Booking ID (e.g. BK4X9KAZ) to view your ticket details.
+      </p>
+      <div class="lookup-bar">
+        <input type="text" id="lookupInput" placeholder="Enter Booking ID..." />
+        <button onclick="lookupBooking()">Search</button>
+      </div>
+
+      <!-- RESULT -->
+      <div class="booking-result" id="bookingResult"></div>
+
+      <!-- NOT FOUND -->
+      <div class="not-found-msg" id="notFoundMsg">
+        😕 No booking found with that ID. Please check and try again.
+      </div>
+    </div>
+
+    <!-- ALL BOOKINGS TABLE -->
+    <div class="all-bookings-section">
+      <h2>📋 All Bookings</h2>
+      <p style="font-size:0.82rem;color:#888;margin-bottom:15px">
+        All confirmed bookings stored in the Hash Table.
+      </p>
+      <table class="bookings-table">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Event</th>
+            <th>Name</th>
+            <th>Seat</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="bookingsTableBody">
+          <tr>
+            <td colspan="6" style="text-align:center;color:#aaa;padding:20px">No bookings yet.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 <span>TicketHive</span> &mdash; Built with Hash Table · Queue · Tree · Quick Sort · Binary Search</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
