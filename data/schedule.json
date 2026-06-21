@@ -1,1 +1,113 @@
-[]
+[
+  {
+    "scheduleId": "SCH001",
+    "eventId": 1,
+    "eventName": "Nairobi Fight Nights",
+    "venue": "The Alchemist Westlands",
+    "date": "2026-06-02",
+    "sessions": [
+      { "time": "18:00", "activity": "Doors Open & Registration" },
+      { "time": "19:00", "activity": "Undercard Bouts Begin" },
+      { "time": "20:30", "activity": "Intermission — Bar & Food" },
+      { "time": "21:00", "activity": "Main Event Fight" },
+      { "time": "22:30", "activity": "Prize Giving & After-Party" }
+    ]
+  },
+  {
+    "scheduleId": "SCH002",
+    "eventId": 2,
+    "eventName": "Blankets & Wine",
+    "venue": "Laureates Garden Kasarani",
+    "date": "2026-06-07",
+    "sessions": [
+      { "time": "12:00", "activity": "Gates Open — Picnic Setup" },
+      { "time": "13:00", "activity": "Opening DJ Set" },
+      { "time": "14:30", "activity": "Live Acoustic Performance — Set 1" },
+      { "time": "16:00", "activity": "Featured Artist Performance" },
+      { "time": "17:30", "activity": "Headline Act" },
+      { "time": "19:00", "activity": "Closing DJ & Wind Down" }
+    ]
+  },
+  {
+    "scheduleId": "SCH003",
+    "eventId": 3,
+    "eventName": "The Saturday Social",
+    "venue": "Ngong Racecourse",
+    "date": "2026-06-27",
+    "sessions": [
+      { "time": "14:00", "activity": "Gates Open" },
+      { "time": "15:00", "activity": "Networking & Mixer Games" },
+      { "time": "16:30", "activity": "Live Band Performance" },
+      { "time": "18:00", "activity": "DJ Set & Dancing" },
+      { "time": "20:00", "activity": "Raffle Draw & Giveaways" },
+      { "time": "21:00", "activity": "Event Close" }
+    ]
+  },
+  {
+    "scheduleId": "SCH004",
+    "eventId": 4,
+    "eventName": "Masaku Sevens Rugby",
+    "venue": "Machakos Stadium",
+    "date": "2026-07-04",
+    "sessions": [
+      { "time": "08:00", "activity": "Gates Open" },
+      { "time": "09:00", "activity": "Pool Stage — Round 1 Matches" },
+      { "time": "11:30", "activity": "Pool Stage — Round 2 Matches" },
+      { "time": "13:00", "activity": "Lunch Break & Entertainment" },
+      { "time": "14:00", "activity": "Quarter Finals" },
+      { "time": "16:00", "activity": "Semi Finals" },
+      { "time": "17:30", "activity": "Third Place Play-Off" },
+      { "time": "18:30", "activity": "Final Match" },
+      { "time": "19:30", "activity": "Medal Ceremony & Prize Giving" }
+    ]
+  },
+  {
+    "scheduleId": "SCH005",
+    "eventId": 5,
+    "eventName": "Agave Affair",
+    "venue": "KICC Grounds",
+    "date": "2026-07-25",
+    "sessions": [
+      { "time": "15:00", "activity": "Doors Open — Welcome Cocktails" },
+      { "time": "16:00", "activity": "Tequila Tasting Masterclass" },
+      { "time": "17:30", "activity": "Live Music — Jazz Duo" },
+      { "time": "19:00", "activity": "Dinner & Mixology Competition" },
+      { "time": "20:30", "activity": "DJ Set & Cocktail Hour" },
+      { "time": "22:00", "activity": "Closing" }
+    ]
+  },
+  {
+    "scheduleId": "SCH006",
+    "eventId": 6,
+    "eventName": "Sol Fest",
+    "venue": "Uhuru Gardens Grounds",
+    "date": "2026-12-19",
+    "sessions": [
+      { "time": "12:00", "activity": "Gates Open" },
+      { "time": "13:00", "activity": "Opening Act — Local Artists" },
+      { "time": "15:00", "activity": "Stage 1: Afrobeats Showcase" },
+      { "time": "16:30", "activity": "Stage 2: Spoken Word & Poetry" },
+      { "time": "18:00", "activity": "Special Guest Performance" },
+      { "time": "19:30", "activity": "Headline Artist — Set 1" },
+      { "time": "21:00", "activity": "Headline Artist — Set 2" },
+      { "time": "23:00", "activity": "Festival Close & Fireworks" }
+    ]
+  },
+  {
+    "scheduleId": "SCH007",
+    "eventId": 7,
+    "eventName": "Beneath The Baobabs Festival",
+    "venue": "Kilifi Creek Grounds",
+    "date": "2026-12-30",
+    "sessions": [
+      { "time": "10:00", "activity": "Camp Check-In & Setup" },
+      { "time": "12:00", "activity": "Welcome Ceremony & Orientation" },
+      { "time": "14:00", "activity": "Yoga & Wellness Sessions" },
+      { "time": "16:00", "activity": "Afternoon Live Music — Stage A" },
+      { "time": "18:00", "activity": "Sundowner DJ Set by the Creek" },
+      { "time": "20:00", "activity": "Communal Dinner" },
+      { "time": "21:30", "activity": "Night Stage — Headline Sets" },
+      { "time": "23:59", "activity": "New Year Countdown & Fireworks" }
+    ]
+  }
+]
