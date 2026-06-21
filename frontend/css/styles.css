@@ -694,7 +694,10 @@ nav ul a.active-link {
 .bookings-table tr:hover td { background: #f9f9f9; }
 
 .status-badge { padding: 3px 8px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; }
-.status-badge.confirmed { background: #d4edda; color: #155724; }
+.status-badge.confirmed  { background: #d4edda; color: #155724; }
+.status-badge.cancelled  { background: #f8d7da; color: #721c24; }
+.ticket-status.confirmed { background: #d4edda; color: #155724; }
+.ticket-status.cancelled { background: #f8d7da; color: #721c24; }
 
 /* NO RESULTS */
 .no-results { text-align: center; padding: 50px 20px; color: #aaa; display: none; }
