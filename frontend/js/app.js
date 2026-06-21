@@ -1,76 +1,17 @@
 // =============================================
-// SAMPLE DATA - Member 3's Array
-// Replace with fetch('/events') when backend ready
+// API BASE URL — change port here if needed
 // =============================================
-const eventsArray = [
-  { id: 1, name: "Jazz Night Live",  category: "Music",      venue: "Nairobi National Theatre", date: "2025-06-10", price: 40, popularity: 85, seats: 120 },
-  { id: 2, name: "Football Final",   category: "Sports",     venue: "Kasarani Stadium",          date: "2025-06-15", price: 70, popularity: 99, seats: 12  },
-  { id: 3, name: "Art Exhibition",   category: "Art",        venue: "Nairobi Gallery",           date: "2025-06-08", price: 20, popularity: 60, seats: 45  },
-  { id: 4, name: "Rock Concert",     category: "Music",      venue: "KICC Grounds",              date: "2025-06-20", price: 55, popularity: 92, seats: 200 },
-  { id: 5, name: "Tech Conference",  category: "Conference", venue: "Strathmore University",     date: "2025-06-18", price: 30, popularity: 74, seats: 80  },
-  { id: 6, name: "Comedy Night",     category: "Comedy",     venue: "Laugh Factory Nairobi",     date: "2025-06-12", price: 25, popularity: 88, seats: 30  }
-];
+const API = 'http://localhost:3000';
 
 // =============================================
-// HASH TABLE - Member 2's Data Structure
-// Stores confirmed bookings by bookingId
-// =============================================
-const bookingsHashTable = {};
-
-function htInsert(bookingId, bookingData) {
-  bookingsHashTable[bookingId] = bookingData;
-  // Save to localStorage so data persists across pages
-  localStorage.setItem('bookings', JSON.stringify(bookingsHashTable));
-}
-
-function htLookup(bookingId) {
-  const stored = localStorage.getItem('bookings');
-  if (stored) {
-    const table = JSON.parse(stored);
-    return table[bookingId] || null;
-  }
-  return null;
-}
-
-function htDelete(bookingId) {
-  const stored = localStorage.getItem('bookings');
-  if (stored) {
-    const table = JSON.parse(stored);
-    delete table[bookingId];
-    localStorage.setItem('bookings', JSON.stringify(table));
-  }
-}
-
-function htGetAll() {
-  const stored = localStorage.getItem('bookings');
-  return stored ? JSON.parse(stored) : {};
-}
-
-// =============================================
-// QUEUE - Member 2's Data Structure
-// Manages purchase requests in order
-// =============================================
-const bookingQueue = [];
-
-function enqueue(request) {
-  bookingQueue.push(request);
-}
-
-function dequeue() {
-  return bookingQueue.shift();
-}
-
-// =============================================
-// QUICK SORT - Member 4's Algorithm
+// QUICK SORT — Member 4
+// Sorts an array of events by a given key
 // Time Complexity: O(n log n) average
 // =============================================
 function quickSort(arr, key) {
   if (arr.length <= 1) return arr;
-
   const pivot = arr[arr.length - 1];
-  const left = [];
-  const right = [];
-
+  const left = [], right = [];
   for (let i = 0; i < arr.length - 1; i++) {
     if (key === 'popularity') {
       arr[i][key] >= pivot[key] ? left.push(arr[i]) : right.push(arr[i]);
@@ -78,443 +19,510 @@ function quickSort(arr, key) {
       arr[i][key] <= pivot[key] ? left.push(arr[i]) : right.push(arr[i]);
     }
   }
-
-  return [...quickSort(left, key), pivot, ...quickSort(right, key)];
+  return quickSort(left, key).concat([pivot], quickSort(right, key));
 }
 
 // =============================================
-// BINARY SEARCH - Member 4's Algorithm
+// BINARY SEARCH — Member 4
+// Searches events by name, venue, or category
 // Time Complexity: O(log n)
 // =============================================
-function binarySearch(arr, searchTerm) {
+function binarySearch(arr, term) {
   const results = [];
-  const term = searchTerm.toLowerCase();
-  for (const event of arr) {
+  const t = term.toLowerCase();
+  for (const item of arr) {
     if (
-      event.name.toLowerCase().includes(term) ||
-      event.venue.toLowerCase().includes(term) ||
-      event.category.toLowerCase().includes(term)
+      item.name.toLowerCase().includes(t) ||
+      item.venue.toLowerCase().includes(t) ||
+      item.category.toLowerCase().includes(t)
     ) {
-      results.push(event);
+      results.push(item);
     }
   }
   return results;
 }
 
 // =============================================
-// GENERATE BOOKING ID
+// HELPERS
 // =============================================
+function getParam(name) {
+  return new URLSearchParams(globalThis.location.search).get(name);
+}
+
 function generateBookingId() {
   return 'BK' + Math.random().toString(36).slice(2, 8).toUpperCase();
 }
 
-// =============================================
-// GET EVENT BY ID
-// =============================================
-function getEventById(id) {
-  return eventsArray.find(function(e) { return e.id === Number.parseInt(id, 10); });
-}
-
-// =============================================
-// GET URL PARAMS
-// =============================================
-function getParam(name) {
-  const params = new URLSearchParams(globalThis.location.search);
-  return params.get(name);
-}
+function showEl(id)  { const el = document.getElementById(id); if (el) el.style.display = 'block'; }
+function hideEl(id)  { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
+function addClass(id, cls)    { const el = document.getElementById(id); if (el) el.classList.add(cls); }
+function removeClass(id, cls) { const el = document.getElementById(id); if (el) el.classList.remove(cls); }
+function setText(id, text)    { const el = document.getElementById(id); if (el) el.textContent = text; }
 
 
 // =============================================
-// INDEX PAGE LOGIC
+// ── INDEX PAGE ──
 // =============================================
 if (document.getElementById('eventsGrid')) {
 
-  let currentEvents = [...eventsArray];
+  let allEvents = [];
+  let currentEvents = [];
 
-  function renderEvents(events) {
+  // Fetch all events from backend (Member 3's Array)
+  function loadEvents() {
     const grid = document.getElementById('eventsGrid');
-    const noResults = document.getElementById('noResults');
-    const countEl = document.getElementById('eventCount');
+    grid.innerHTML = '<p class="loading">Loading events...</p>';
 
+    fetch(API + '/events')
+      .then(function(res) {
+        if (!res.ok) throw new Error('Failed to load events');
+        return res.json();
+      })
+      .then(function(events) {
+        allEvents = events;
+        currentEvents = allEvents.slice();
+        renderEvents(currentEvents);
+      })
+      .catch(function(err) {
+        console.error('Error loading events:', err);
+        grid.innerHTML = '';
+        addClass('fetchError', 'show');
+      });
+  }
+
+  function renderEvents(arr) {
+      const grid = document.getElementById('eventsGrid');
+    const noRes = document.getElementById('noResults');
     grid.innerHTML = '';
-    countEl.textContent = '(' + events.length + ' found)';
+    setText('eventCount', '(' + arr.length + ' found)');
 
-    if (events.length === 0) {
-      noResults.style.display = 'block';
+    if (arr.length === 0) {
+      noRes.style.display = 'block';
       return;
     }
-    noResults.style.display = 'none';
+    noRes.style.display = 'none';
 
-    events.forEach(function(event) {
-      const cat = event.category.toLowerCase();
-      const seatClass = event.seats < 20 ? 'low' : '';
-      const seatText = event.seats < 20
-        ? '⚠ Only ' + event.seats + ' seats left!'
-        : '✓ ' + event.seats + ' seats available';
+    for (const e of arr) {
+      const cat = (e.category || 'default').toLowerCase();
+      const seatClass = e.seats < 20 ? 'low' : '';
+      const seatText  = e.seats < 20
+        ? '⚠ Only ' + e.seats + ' seats left!'
+        : '✓ ' + e.seats + ' seats available';
 
       const card = document.createElement('div');
       card.className = 'event-card';
       card.innerHTML =
-        '<div class="card-banner ' + cat + '"></div>' +
-        '<div class="card-header">' +
-          '<h3>' + event.name + '</h3>' +
-          '<span class="category-badge ' + cat + '">' + event.category + '</span>' +
+        '<div class="card-top ' + cat + '"></div>' +
+        '<div class="card-head">' +
+          '<h3>' + e.name + '</h3>' +
+          '<span class="badge ' + cat + '">' + e.category + '</span>' +
         '</div>' +
         '<div class="card-body">' +
-          '<p>📍 ' + event.venue + '</p>' +
-          '<p>📅 ' + event.date + '</p>' +
-          '<p>🔥 Popularity: ' + event.popularity + '%</p>' +
+          '<p>📍 ' + e.venue + '</p>' +
+          '<p>📅 ' + e.date + '</p>' +
+          '<p>🔥 Popularity: ' + e.popularity + '%</p>' +
           '<p class="seats ' + seatClass + '">' + seatText + '</p>' +
         '</div>' +
-        '<div class="card-footer">' +
-          '<span class="price">KSH ' + event.price + '</span>' +
+        '<div class="card-foot">' +
+          '<span class="price">KSH ' + e.price + '</span>' +
+          '<button class="btn-primary" onclick="goToDetails(' + e.id + ')">View & Book</button>' +
         '</div>';
-
-      const bookBtn = document.createElement('button');
-      bookBtn.className = 'btn-book';
-      bookBtn.textContent = 'View & Book';
-      bookBtn.addEventListener('click', function() {
-        window.location.href = 'event-details.html?eventId=' + event.id;
-      });
-      card.querySelector('.card-footer').appendChild(bookBtn);
-
       grid.appendChild(card);
-    });
+    }
   }
 
   function sortEvents(key, btn) {
     document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
-    currentEvents = key === 'default' ? [...eventsArray] : quickSort([...eventsArray], key);
+    currentEvents = key === 'default' ? allEvents.slice() : quickSort(allEvents.slice(), key);
     renderEvents(currentEvents);
   }
 
   function runSearch() {
     const term = document.getElementById('searchInput').value.trim();
-    if (!term) { currentEvents = [...eventsArray]; renderEvents(currentEvents); return; }
-    currentEvents = binarySearch(eventsArray, term);
+    if (!term) { currentEvents = allEvents.slice(); renderEvents(currentEvents); return; }
+    currentEvents = binarySearch(allEvents, term);
     renderEvents(currentEvents);
+  }
+
+  function goToDetails(id) {
+    globalThis.location.href = 'event-details.html?eventId=' + id;
   }
 
   document.getElementById('searchInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') runSearch();
   });
 
-  document.querySelectorAll('.filter-btn').forEach(function(button) {
-    button.addEventListener('click', function() {
-      const key = button.dataset.key || button.dataset.sort || 'default';
-      sortEvents(key, button);
-    });
-  });
+  // Expose to HTML onclick
+  globalThis.sortEvents = sortEvents;
+  globalThis.runSearch  = runSearch;
+  globalThis.goToDetails = goToDetails;
 
-  function goToDetails(id) {
-    window.location.href = 'event-details.html?eventId=' + id;
-  }
-
-  renderEvents(eventsArray);
+  loadEvents();
 }
 
 
 // =============================================
-// EVENT DETAILS PAGE LOGIC
+// ── EVENT DETAILS PAGE ──
 // =============================================
 if (document.getElementById('detailsContent')) {
 
-  var selectedSeat = null;
+  let selectedSeat = null;
+  const currentEventId = getParam('eventId');
 
-  // Tree structure (Member 3) - venue seats
-  const venueTree = {
-    'Section A': {
-      'Row 1': ['A1-1','A1-2','A1-3','A1-4','A1-5'],
-      'Row 2': ['A2-1','A2-2','A2-3','A2-4','A2-5'],
-    },
-    'Section B': {
-      'Row 1': ['B1-1','B1-2','B1-3','B1-4','B1-5'],
-      'Row 2': ['B2-1','B2-2','B2-3','B2-4','B2-5'],
+  async function loadDetails() {
+    try {
+      const res = await fetch(API + '/events/' + currentEventId);
+      if (!res.ok) throw new Error('Event not found');
+      const e = await res.json();
+      renderDetails(e);
+    } catch (err) {
+      // Log the error for debugging and show a user-friendly message
+      console.error('Failed to load event details:', err);
+      document.getElementById('detailsContent').innerHTML =
+        '<p style="padding:30px;color:#e74c3c">Could not load event. Make sure the backend is running.</p>';
     }
-  };
+  }
 
-  // Simulate some booked seats
-  const bookedSeats = ['A1-2', 'A1-4', 'B1-1', 'B2-3'];
-
-  function loadDetails() {
-    const id = getParam('eventId');
-    const event = getEventById(id);
-    if (!event) { document.getElementById('detailsContent').innerHTML = '<p style="padding:30px">Event not found.</p>'; return; }
-
-    const cat = event.category.toLowerCase();
+  function renderDetails(e) {
+    const cat = (e.category || 'default').toLowerCase();
     document.getElementById('detailsContent').innerHTML =
       '<div class="details-card">' +
-        '<div class="details-banner card-banner ' + cat + '" style="height:12px"></div>' +
+        '<div class="details-banner card-top ' + cat + '"></div>' +
         '<div class="details-info">' +
-          '<h2>' + event.name + '</h2>' +
+          '<h2>' + e.name + '</h2>' +
           '<div class="details-meta">' +
-            '<div class="meta-item"><span class="meta-label">📍 Venue</span><span class="meta-value">' + event.venue + '</span></div>' +
-            '<div class="meta-item"><span class="meta-label">📅 Date</span><span class="meta-value">' + event.date + '</span></div>' +
-            '<div class="meta-item"><span class="meta-label">💰 Price</span><span class="meta-value">KSH ' + event.price + '</span></div>' +
-            '<div class="meta-item"><span class="meta-label">🔥 Popularity</span><span class="meta-value">' + event.popularity + '%</span></div>' +
-            '<div class="meta-item"><span class="meta-label">🎟 Seats Left</span><span class="meta-value">' + event.seats + '</span></div>' +
-            '<div class="meta-item"><span class="meta-label">🏷 Category</span><span class="meta-value">' + event.category + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">📍 Venue</span><span class="meta-value">' + e.venue + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">📅 Date</span><span class="meta-value">' + e.date + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">💰 Price</span><span class="meta-value">KSH ' + e.price + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">🔥 Popularity</span><span class="meta-value">' + e.popularity + '%</span></div>' +
+            '<div class="meta-item"><span class="meta-label">🎟 Seats Left</span><span class="meta-value">' + e.seats + '</span></div>' +
+            '<div class="meta-item"><span class="meta-label">🏷 Category</span><span class="meta-value">' + e.category + '</span></div>' +
           '</div>' +
           '<div class="details-actions">' +
-            '<button class="btn-primary" onclick="goToBook(' + event.id + ', \'' + event.name + '\')">Book This Event</button>' +
+            '<button class="btn-primary" onclick="proceedToBook()">Book This Event</button>' +
             '<button class="btn-secondary" onclick="window.location.href=\'index.html\'">Back to Events</button>' +
           '</div>' +
         '</div>' +
       '</div>';
 
-    renderSeatMap(event.id);
+    loadSeatMap();
   }
 
-  function renderSeatMap(eventId) {
+  async function loadSeatMap() {
+    try {
+      const res = await fetch(API + '/venues/' + currentEventId);
+      if (!res.ok) throw new Error('No seat map');
+      const venue = await res.json();
+      renderSeatMap(venue);
+    } catch (err) {
+      console.error(err);
+      document.getElementById('seatMap').innerHTML =
+        '<p style="color:#888;font-size:0.85rem">Seat map not available yet.</p>';
+    }
+  }
+
+  // Traverse Tree structure (Member 3)
+  function renderSeatMap(venue) {
     const mapEl = document.getElementById('seatMap');
     mapEl.innerHTML = '';
 
-    // Traverse tree structure (Member 3's Tree)
-    Object.keys(venueTree).forEach(function(section) {
-      const secLabel = document.createElement('div');
-      secLabel.className = 'section-label';
-      secLabel.textContent = section;
-      mapEl.appendChild(secLabel);
-
-      Object.keys(venueTree[section]).forEach(function(row) {
-        const rowLabel = document.createElement('div');
-        rowLabel.className = 'row-label';
-        rowLabel.textContent = row;
-        mapEl.appendChild(rowLabel);
-
-        const rowDiv = document.createElement('div');
-        rowDiv.className = 'seats-row';
-
-        venueTree[section][row].forEach(function(seatId) {
-          const isBooked = bookedSeats.includes(seatId);
-          const btn = document.createElement('button');
-          btn.className = 'seat-btn ' + (isBooked ? 'booked' : 'available');
-          btn.textContent = seatId;
-          btn.disabled = isBooked;
-
-          if (!isBooked) {
-            btn.onclick = function() { selectSeat(seatId, btn, eventId); };
-          }
-
-          rowDiv.appendChild(btn);
-        });
-
-        mapEl.appendChild(rowDiv);
-      });
+    const sections = venue.sections || {};
+    Object.keys(sections).forEach(function(secName) {
+      renderSection(mapEl, secName, sections[secName]);
     });
   }
 
-  function selectSeat(seatId, btn, eventId) {
-    // Deselect previous
+  function renderSection(mapEl, secName, sectionData) {
+    const secLabel = document.createElement('div');
+    secLabel.className = 'section-label';
+    secLabel.textContent = secName;
+    mapEl.appendChild(secLabel);
+
+    const rows = sectionData.rows || {};
+    Object.keys(rows).forEach(function(rowName) {
+      renderRow(mapEl, rowName, rows[rowName]);
+    });
+  }
+
+  function renderRow(mapEl, rowName, rowData) {
+    const rowLabel = document.createElement('div');
+    rowLabel.className = 'row-label';
+    rowLabel.textContent = rowName;
+    mapEl.appendChild(rowLabel);
+
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'seats-row';
+
+    const seats = rowData.seats || {};
+    Object.keys(seats).forEach(function(seatId) {
+      renderSeatButton(rowDiv, seatId, seats[seatId]);
+    });
+
+    mapEl.appendChild(rowDiv);
+  }
+
+  function renderSeatButton(container, seatId, seatData) {
+    const btn = document.createElement('button');
+    btn.className = 'seat-btn ' + (seatData.status === 'booked' ? 'booked' : 'available');
+    btn.textContent = seatId;
+    btn.disabled = seatData.status === 'booked';
+    if (seatData.status !== 'booked') {
+      btn.onclick = function() { selectSeat(seatId, btn); };
+    }
+    container.appendChild(btn);
+  }
+
+  function selectSeat(seatId, btn) {
     document.querySelectorAll('.seat-btn.selected').forEach(function(b) {
       b.classList.remove('selected');
       b.classList.add('available');
     });
-
     btn.classList.remove('available');
     btn.classList.add('selected');
     selectedSeat = seatId;
 
-    const event = getEventById(eventId);
     const info = document.getElementById('selectedInfo');
     info.className = 'selected-info show';
-    info.innerHTML = '✓ Selected: <strong>' + seatId + '</strong> — KSH ' + event.price +
-      ' &nbsp; <button class="btn-primary" style="padding:5px 14px;font-size:0.82rem" onclick="goToBook(' + event.id + ',\'' + event.name + '\',\'' + seatId + '\')">Proceed to Book</button>';
+    info.innerHTML =
+      '<span>✓ Seat <strong>' + seatId + '</strong> selected</span>' +
+      '<button class="btn-primary" style="padding:6px 14px;font-size:0.82rem" onclick="proceedToBook()">Proceed to Book →</button>';
   }
 
-  function goToBook(id, name, seat) {
-    var url = 'booking.html?eventId=' + id + '&eventName=' + encodeURIComponent(name);
-    if (seat) url += '&seat=' + seat;
-    window.location.href = url;
+  function proceedToBook() {
+    let url = 'booking.html?eventId=' + currentEventId;
+    if (selectedSeat) url += '&seat=' + selectedSeat;
+    globalThis.location.href = url;
   }
 
+  globalThis.proceedToBook = proceedToBook;
+
+  // Load details
   loadDetails();
 }
 
 
 // =============================================
-// BOOKING PAGE LOGIC
+// ── BOOKING PAGE ──
 // =============================================
 if (document.getElementById('bookingForm')) {
 
-  function loadBookingPage() {
+  let bookingEventData = null;
+
+  async function loadBookingPage() {
     const eventId = getParam('eventId');
-    const eventName = decodeURIComponent(getParam('eventName') || '');
-    const seat = getParam('seat') || 'Not selected';
-    const event = getEventById(eventId);
+    const seat    = getParam('seat') || 'General';
 
-    if (!event) return;
+    try {
+      let res = await fetch(API + '/events/' + eventId);
+      if (!res.ok) throw new Error('Event not found');
+      bookingEventData = await res.json();
 
-    document.getElementById('bookingEventName').textContent = eventName;
-    document.getElementById('bookingEventDate').textContent = event.date;
-    document.getElementById('bookingEventVenue').textContent = event.venue;
-    document.getElementById('summaryEvent').textContent = eventName;
-    document.getElementById('summarySeat').textContent = seat;
-    document.getElementById('summaryPrice').textContent = 'KSH ' + event.price;
-    document.getElementById('summaryTotal').textContent = 'KSH ' + event.price;
+      setText('bookingEventName', bookingEventData.name);
+      setText('bookingEventDate', bookingEventData.date);
+      setText('bookingEventVenue', bookingEventData.venue);
+      setText('summaryEvent', bookingEventData.name);
+      setText('summarySeat', seat);
+      setText('summaryPrice', 'KSH ' + bookingEventData.price);
+      setText('summaryTotal', 'KSH ' + bookingEventData.price);
+    } catch (err) {
+      console.error('Error loading booking page:', err);
+      document.getElementById('bookingForm').innerHTML =
+        '<p style="padding:30px;color:#e74c3c">Could not load event details. Make sure the backend is running.</p>';
+    }
   }
 
   function updateTotal() {
-    const qty = parseInt(document.getElementById('ticketQty').value) || 1;
-    const eventId = getParam('eventId');
-    const event = getEventById(eventId);
-    if (!event) return;
-    const total = event.price * qty;
-    document.getElementById('summaryTotal').textContent = 'KSH ' + total;
-    document.getElementById('summaryQty').textContent = qty;
+    if (!bookingEventData) return;
+    const qty   = Number.parseInt(document.getElementById('ticketQty').value) || 1;
+    const total = bookingEventData.price * qty;
+    setText('summaryQty', qty);
+    setText('summaryTotal', 'KSH ' + total);
   }
 
-  function submitBooking() {
-    // Basic validation
-    const name = document.getElementById('userName').value.trim();
+  async function submitBooking() {
+    // Validate inputs
+    const name  = document.getElementById('userName').value.trim();
     const email = document.getElementById('userEmail').value.trim();
     const phone = document.getElementById('userPhone').value.trim();
+    const qty   = Number.parseInt(document.getElementById('ticketQty').value) || 1;
+    const seat  = getParam('seat') || 'General';
     let valid = true;
 
-    if (!name) { showError('nameError', 'nameInput'); valid = false; }
-    else { hideError('nameError', 'nameInput'); }
-
-    if (!email || !email.includes('@')) { showError('emailError', 'emailInput'); valid = false; }
-    else { hideError('emailError', 'emailInput'); }
-
-    if (!phone) { showError('phoneError', 'phoneInput'); valid = false; }
-    else { hideError('phoneError', 'phoneInput'); }
-
+    if (!name)  { showFieldError('nameError', 'userName');  valid = false; } else { hideFieldError('nameError', 'userName');  }
+    // Validate email contains '@'
+    if (!email || !email?.includes('@')) { showFieldError('emailError', 'userEmail'); valid = false; } else { hideFieldError('emailError', 'userEmail'); }
+    if (!phone) { showFieldError('phoneError', 'userPhone'); valid = false; } else { hideFieldError('phoneError', 'userPhone'); }
     if (!valid) return;
 
-    // Build booking object
-    const eventId = getParam('eventId');
-    const event = getEventById(eventId);
-    const qty = parseInt(document.getElementById('ticketQty').value) || 1;
-    const seat = getParam('seat') || 'General';
     const bookingId = generateBookingId();
-
     const booking = {
-      bookingId: bookingId,
-      userName: name,
-      email: email,
-      phone: phone,
-      eventId: eventId,
-      eventName: event.name,
-      venue: event.venue,
-      date: event.date,
-      seat: seat,
-      qty: qty,
-      price: event.price * qty,
-      status: 'confirmed',
-      timestamp: new Date().toLocaleString()
+      bookingId:  bookingId,
+      userName:   name,
+      email:      email,
+      phone:      phone,
+      eventId:    getParam('eventId'),
+      eventName:  bookingEventData.name,
+      venue:      bookingEventData.venue,
+      date:       bookingEventData.date,
+      seat:       seat,
+      qty:        qty,
+      price:      bookingEventData.price * qty,
+      status:     'confirmed',
+      timestamp:  new Date().toLocaleString()
     };
 
-    // Add to Queue then process into Hash Table (Members 2's structures)
-    enqueue(booking);
-    const processed = dequeue();
-    htInsert(processed.bookingId, processed);
+    try {
+      // Add to Queue then Hash Table via backend (Member 2)
+      await fetch(API + '/queue', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(booking)
+      });
 
-    // Show success
-    document.getElementById('bookingForm').style.display = 'none';
-    const successBox = document.getElementById('successBox');
-    successBox.className = 'success-box show';
-    document.getElementById('confirmedId').textContent = bookingId;
-    document.getElementById('confirmedName').textContent = name;
-    document.getElementById('confirmedEvent').textContent = event.name;
+      const res = await fetch(API + '/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(booking)
+      });
+
+      if (!res.ok) throw new Error('Booking failed');
+
+      // Update seat in Tree (Member 3)
+      if (seat !== 'General') {
+        await fetch(API + '/venues/' + getParam('eventId') + '/book', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ seat: seat })
+        });
+      }
+
+      // Show success
+      document.getElementById('bookingForm').style.display = 'none';
+      document.getElementById('successBox').className = 'success-box show';
+      setText('confirmedId', bookingId);
+      setText('confirmedName', name);
+      setText('confirmedEvent', bookingEventData.name);
+
+    } catch (err) {
+      console.error(err);
+      alert('Booking failed. Please make sure the backend server is running.');
+    }
   }
 
-  function showError(errorId, inputId) {
-    document.getElementById(errorId).className = 'error-msg show';
-    document.getElementById(inputId).className = 'error';
+  function showFieldError(errorId, inputId) {
+    addClass(errorId, 'show');
+    const el = document.getElementById(inputId);
+    if (el) el.classList.add('error');
   }
 
-  function hideError(errorId, inputId) {
-    document.getElementById(errorId).className = 'error-msg';
-    document.getElementById(inputId).className = '';
+  function hideFieldError(errorId, inputId) {
+    removeClass(errorId, 'show');
+    const el = document.getElementById(inputId);
+    if (el) el.classList.remove('error');
   }
+
+  globalThis.updateTotal    = updateTotal;
+  globalThis.submitBooking  = submitBooking;
 
   loadBookingPage();
 }
 
 
 // =============================================
-// MY BOOKINGS PAGE LOGIC
+// ── MY BOOKINGS PAGE ──
 // =============================================
 if (document.getElementById('lookupInput')) {
 
-  function lookupBooking() {
+  async function lookupBooking() {
     const id = document.getElementById('lookupInput').value.trim().toUpperCase();
-    const booking = htLookup(id);
-    const resultDiv = document.getElementById('bookingResult');
-    const notFound = document.getElementById('notFoundMsg');
+    if (!id) return;
 
-    if (!booking) {
-      resultDiv.className = 'booking-result';
-      notFound.className = 'not-found-msg show';
-      return;
-    }
+    try {
+      const res = await fetch(API + '/bookings/' + id);
+      if (!res.ok) throw new Error('Not found');
+      const booking = await res.json();
 
-    notFound.className = 'not-found-msg';
-    resultDiv.className = 'booking-result show';
-    resultDiv.innerHTML =
-      '<div class="booking-ticket">' +
-        '<div class="ticket-header">' +
-          '<div>' +
-            '<h3>' + booking.eventName + '</h3>' +
-            '<p>Booking ID: ' + booking.bookingId + '</p>' +
+      removeClass('notFoundMsg', 'show');
+      const resultDiv = document.getElementById('bookingResult');
+      resultDiv.className = 'booking-result show';
+      resultDiv.innerHTML =
+        '<div class="booking-ticket">' +
+          '<div class="ticket-header">' +
+            '<div><h3>' + booking.eventName + '</h3><p>Booking ID: ' + booking.bookingId + '</p></div>' +
+            '<span class="ticket-badge confirmed">Confirmed</span>' +
           '</div>' +
-          '<span class="ticket-status confirmed">Confirmed</span>' +
-        '</div>' +
-        '<div class="ticket-body">' +
-          '<div class="ticket-item"><div class="t-label">Name</div><div class="t-value">' + booking.userName + '</div></div>' +
-          '<div class="ticket-item"><div class="t-label">Email</div><div class="t-value">' + booking.email + '</div></div>' +
-          '<div class="ticket-item"><div class="t-label">Venue</div><div class="t-value">' + booking.venue + '</div></div>' +
-          '<div class="ticket-item"><div class="t-label">Date</div><div class="t-value">' + booking.date + '</div></div>' +
-          '<div class="ticket-item"><div class="t-label">Seat</div><div class="t-value">' + booking.seat + '</div></div>' +
-          '<div class="ticket-item"><div class="t-label">Amount Paid</div><div class="t-value">KSH ' + booking.price + '</div></div>' +
-        '</div>' +
-        '<div class="ticket-footer">' +
-          '<span style="font-size:0.82rem;color:#888">Booked on: ' + booking.timestamp + '</span>' +
-          '<button class="btn-danger" onclick="cancelBooking(\'' + booking.bookingId + '\')">Cancel Booking</button>' +
-        '</div>' +
-      '</div>';
+          '<div class="ticket-body">' +
+            '<div class="ticket-item"><div class="t-label">Name</div><div class="t-value">' + booking.userName + '</div></div>' +
+            '<div class="ticket-item"><div class="t-label">Email</div><div class="t-value">' + booking.email + '</div></div>' +
+            '<div class="ticket-item"><div class="t-label">Venue</div><div class="t-value">' + booking.venue + '</div></div>' +
+            '<div class="ticket-item"><div class="t-label">Date</div><div class="t-value">' + booking.date + '</div></div>' +
+            '<div class="ticket-item"><div class="t-label">Seat</div><div class="t-value">' + booking.seat + '</div></div>' +
+            '<div class="ticket-item"><div class="t-label">Amount Paid</div><div class="t-value">KSH ' + booking.price + '</div></div>' +
+          '</div>' +
+          '<div class="ticket-footer">' +
+            '<span>Booked on: ' + booking.timestamp + '</span>' +
+            '<button class="btn-danger" onclick="cancelBooking(\'' + booking.bookingId + '\')">Cancel Booking</button>' +
+          '</div>' +
+        '</div>';
+
+    } catch (err) {
+      document.getElementById('bookingResult').className = 'booking-result';
+      addClass('notFoundMsg', 'show');
+    }
   }
 
-  function cancelBooking(bookingId) {
-    if (confirm('Are you sure you want to cancel this booking?')) {
-      htDelete(bookingId);
+  async function cancelBooking(bookingId) {
+    if (!confirm('Are you sure you want to cancel booking ' + bookingId + '?')) return;
+    try {
+      var res = await fetch(API + '/bookings/' + bookingId, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Cancel failed');
       document.getElementById('bookingResult').className = 'booking-result';
       document.getElementById('lookupInput').value = '';
+      alert('Booking ' + bookingId + ' cancelled successfully.');
       loadAllBookings();
-      alert('Booking ' + bookingId + ' has been cancelled.');
+    } catch (err) {
+      alert('Could not cancel booking. Make sure the backend is running.');
     }
   }
 
-  function loadAllBookings() {
-    const table = htGetAll();
-    const tbody = document.getElementById('bookingsTableBody');
-    tbody.innerHTML = '';
+  async function loadAllBookings() {
+    var tbody = document.getElementById('bookingsTableBody');
+    try {
+      var res = await fetch(API + '/bookings');
+      if (!res.ok) throw new Error('Failed');
+      var data = await res.json();
+      var keys = Object.keys(data);
+      tbody.innerHTML = '';
 
-    const keys = Object.keys(table);
-    if (keys.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#aaa;padding:20px">No bookings found.</td></tr>';
-      return;
+      if (keys.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#aaa;padding:20px">No bookings yet.</td></tr>';
+        return;
+      }
+
+      keys.forEach(function(key) {
+        var b = data[key];
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td>' + b.bookingId  + '</td>' +
+          '<td>' + b.eventName  + '</td>' +
+          '<td>' + b.userName   + '</td>' +
+          '<td>' + b.seat       + '</td>' +
+          '<td>KSH ' + b.price  + '</td>' +
+          '<td><span class="status-pill confirmed">Confirmed</span></td>';
+        tbody.appendChild(tr);
+      });
+    } catch (err) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#aaa;padding:20px">Could not load bookings. Make sure the backend is running.</td></tr>';
     }
-
-    keys.forEach(function(key) {
-      const b = table[key];
-      const tr = document.createElement('tr');
-      tr.innerHTML =
-        '<td>' + b.bookingId + '</td>' +
-        '<td>' + b.eventName + '</td>' +
-        '<td>' + b.userName + '</td>' +
-        '<td>' + b.seat + '</td>' +
-        '<td>KSH ' + b.price + '</td>' +
-        '<td><span class="status-badge confirmed">Confirmed</span></td>';
-      tbody.appendChild(tr);
-    });
   }
 
   document.getElementById('lookupInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') lookupBooking();
   });
+
+  window.lookupBooking = lookupBooking;
+  window.cancelBooking = cancelBooking;
 
   loadAllBookings();
 }

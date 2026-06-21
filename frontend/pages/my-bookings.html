@@ -4,22 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TicketHive - My Bookings</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
 
-  <!-- NAVIGATION -->
   <nav>
     <div class="logo">🎟 TicketHive</div>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="event-details.html">Events</a></li>
       <li><a href="booking.html">Book</a></li>
-      <li><a href="my-bookings.html" class="active-link">My Bookings</a></li>
+      <li><a href="my-bookings.html" class="active">My Bookings</a></li>
     </ul>
   </nav>
 
-  <!-- PAGE HEADER -->
   <div class="page-header">
     <div class="breadcrumb"><a href="index.html">Home</a> / My Bookings</div>
     <h1>My Bookings</h1>
@@ -28,12 +26,10 @@
 
   <div class="bookings-container">
 
-    <!-- LOOKUP CARD -->
+    <!-- LOOKUP -->
     <div class="lookup-card">
       <h2>🔍 Look Up a Booking</h2>
-      <p style="font-size:0.85rem;color:#888;margin-bottom:15px">
-        Enter your Booking ID (e.g. BK4X9KAZ) to view your ticket details.
-      </p>
+      <p>Enter your Booking ID (e.g. BK4X9KAZ) to view your ticket.</p>
       <div class="lookup-bar">
         <input type="text" id="lookupInput" placeholder="Enter Booking ID..." />
         <button onclick="lookupBooking()">Search</button>
@@ -51,9 +47,6 @@
     <!-- ALL BOOKINGS TABLE -->
     <div class="all-bookings-section">
       <h2>📋 All Bookings</h2>
-      <p style="font-size:0.82rem;color:#888;margin-bottom:15px">
-        All confirmed bookings stored in the Hash Table.
-      </p>
       <table class="bookings-table">
         <thead>
           <tr>
@@ -67,7 +60,7 @@
         </thead>
         <tbody id="bookingsTableBody">
           <tr>
-            <td colspan="6" style="text-align:center;color:#aaa;padding:20px">No bookings yet.</td>
+            <td colspan="6" style="text-align:center;color:#aaa;padding:20px">Loading bookings...</td>
           </tr>
         </tbody>
       </table>
@@ -75,11 +68,10 @@
 
   </div>
 
-  <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 <span>TicketHive</span> &mdash; Built with Hash Table · Queue · Tree · Quick Sort · Binary Search</p>
+    <p>&copy; 2025 <span>TicketHive</span></p>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="/js/app.js"></script>
 </body>
 </html>

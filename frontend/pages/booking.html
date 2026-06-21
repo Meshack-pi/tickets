@@ -4,58 +4,55 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TicketHive - Book Ticket</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
-  <!-- NAVIGATION -->
   <nav>
     <div class="logo">🎟 TicketHive</div>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="event-details.html">Events</a></li>
-      <li><a href="booking.html" class="active-link">Book</a></li>
+      <li><a href="booking.html" class="active">Book</a></li>
       <li><a href="my-bookings.html">My Bookings</a></li>
     </ul>
   </nav>
 
-  <!-- PAGE HEADER -->
   <div class="page-header">
     <div class="breadcrumb"><a href="index.html">Home</a> / <a href="event-details.html">Events</a> / Book Ticket</div>
     <h1>Book Your Ticket</h1>
-    <p>Fill in your details to complete the booking</p>
+    <p>Fill in your details to confirm your booking</p>
   </div>
 
   <div class="booking-container">
 
     <!-- BOOKING FORM -->
     <div id="bookingForm">
-
-      <!-- EVENT SUMMARY CARD -->
       <div class="booking-card">
+
         <div class="booking-card-header">
-          <h2 id="bookingEventName">Event Name</h2>
+          <h2 id="bookingEventName">Loading...</h2>
           <p>📅 <span id="bookingEventDate"></span> &nbsp;|&nbsp; 📍 <span id="bookingEventVenue"></span></p>
         </div>
 
-        <!-- FORM FIELDS -->
         <div class="booking-form">
+
           <div class="form-group">
             <label for="userName">Full Name</label>
-            <input type="text" id="userName" placeholder="e.g. Alice Mwangi" />
-            <div class="error-msg" id="nameError">Please enter your full name.</div>
+            <input type="text" id="userName" name="userName" placeholder="First and last name" />
+            <div class="field-error" id="nameError">Please enter your full name.</div>
           </div>
 
           <div class="form-group">
             <label for="userEmail">Email Address</label>
-            <input type="email" id="userEmail" placeholder="e.g. alice@gmail.com" />
-            <div class="error-msg" id="emailError">Please enter a valid email address.</div>
+            <input type="email" id="userEmail" name="userEmail" aria-describedby="emailError" placeholder="e.g. alice@gmail.com" />
+            <div class="field-error" id="emailError">Please enter a valid email address.</div>
           </div>
 
           <div class="form-group">
             <label for="userPhone">Phone Number</label>
-            <input type="text" id="userPhone" placeholder="e.g. 0712345678" />
-            <div class="error-msg" id="phoneError">Please enter your phone number.</div>
+            <input type="text" id="userPhone" placeholder="e.g. +254712345678" />
+            <div class="field-error" id="phoneError">Please enter your phone number.</div>
           </div>
 
           <div class="form-group">
@@ -72,48 +69,31 @@
           <!-- ORDER SUMMARY -->
           <div class="order-summary">
             <h3>Order Summary</h3>
-            <div class="summary-row">
-              <span>Event</span>
-              <span id="summaryEvent">—</span>
-            </div>
-            <div class="summary-row">
-              <span>Seat</span>
-              <span id="summarySeat">—</span>
-            </div>
-            <div class="summary-row">
-              <span>Quantity</span>
-              <span id="summaryQty">1</span>
-            </div>
-            <div class="summary-row">
-              <span>Price per Ticket</span>
-              <span id="summaryPrice">—</span>
-            </div>
-            <div class="summary-row total">
-              <span>Total</span>
-              <span id="summaryTotal">—</span>
-            </div>
+            <div class="summary-row"><span>Event</span><span id="summaryEvent">—</span></div>
+            <div class="summary-row"><span>Seat</span><span id="summarySeat">—</span></div>
+            <div class="summary-row"><span>Quantity</span><span id="summaryQty">1</span></div>
+            <div class="summary-row"><span>Price per Ticket</span><span id="summaryPrice">—</span></div>
+            <div class="summary-row total"><span>Total</span><span id="summaryTotal">—</span></div>
           </div>
 
-          <!-- FORM BUTTONS -->
           <div class="form-actions">
             <button class="btn-primary" onclick="submitBooking()">Confirm Booking</button>
             <button class="btn-secondary" onclick="history.back()">Go Back</button>
           </div>
+
         </div>
       </div>
     </div>
 
-    <!-- SUCCESS MESSAGE (shown after booking) -->
+    <!-- SUCCESS (shown after booking) -->
     <div class="success-box" id="successBox">
       <div class="success-icon">🎉</div>
       <h2>Booking Confirmed!</h2>
       <p>Thank you, <strong id="confirmedName"></strong>!</p>
       <p>Your ticket for <strong id="confirmedEvent"></strong> has been booked.</p>
-      <div class="booking-id" id="confirmedId"></div>
-      <p style="font-size:0.82rem;color:#999;margin-bottom:20px">
-        Save your Booking ID above to view or cancel your booking.
-      </p>
-      <div style="display:flex;gap:12px;justify-content:center">
+      <div class="booking-id-display" id="confirmedId"></div>
+      <p style="font-size:0.82rem;color:#999">Save your Booking ID to view or cancel your booking.</p>
+      <div class="success-actions">
         <button class="btn-primary" onclick="window.location.href='my-bookings.html'">View My Bookings</button>
         <button class="btn-secondary" onclick="window.location.href='index.html'">Back to Home</button>
       </div>
@@ -121,11 +101,10 @@
 
   </div>
 
-  <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 <span>TicketHive</span> &mdash; Built with Hash Table · Queue · Tree · Quick Sort · Binary Search</p>
+    <p>&copy; 2025 <span>TicketHive</span></p>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
