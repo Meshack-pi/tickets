@@ -4,22 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TicketHive - Book Ticket</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="/frontend/css/styles.css" />
 </head>
 <body>
 
   <nav>
     <div class="logo">🎟 TicketHive</div>
     <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="event-details.html">Events</a></li>
-      <li><a href="booking.html" class="active">Book</a></li>
-      <li><a href="my-bookings.html">My Bookings</a></li>
+      <li><a href="/frontend/pages/index.html">Home</a></li>
+      <li><a href="/frontend/pages/event-details.html">Events</a></li>
+      <li><a href="/frontend/pages/booking.html" class="active">Book</a></li>
+      <li><a href="/frontend/pages/my-bookings.html">My Bookings</a></li>
     </ul>
   </nav>
 
   <div class="page-header">
-    <div class="breadcrumb"><a href="index.html">Home</a> / <a href="event-details.html">Events</a> / Book Ticket</div>
+    <div class="breadcrumb"><a href="/frontend/pages/index.html">Home</a> / <a href="/frontend/pages/event-details.html">Events</a> / Book Ticket</div>
     <h1>Book Your Ticket</h1>
     <p>Fill in your details to confirm your booking</p>
   </div>
@@ -94,8 +94,8 @@
       <div class="booking-id-display" id="confirmedId"></div>
       <p style="font-size:0.82rem;color:#999">Save your Booking ID to view or cancel your booking.</p>
       <div class="success-actions">
-        <button class="btn-primary" onclick="window.location.href='my-bookings.html'">View My Bookings</button>
-        <button class="btn-secondary" onclick="window.location.href='index.html'">Back to Home</button>
+        <button class="btn-primary" onclick="window.location.href='/frontend/pages/my-bookings.html'">View My Bookings</button>
+        <button class="btn-secondary" onclick="window.location.href='/frontend/pages/index.html'">Back to Home</button>
       </div>
     </div>
 
@@ -105,6 +105,6 @@
     <p>&copy; 2025 <span>TicketHive</span></p>
   </footer>
 
-  <script src="js/app.js"></script>
+  <script src="/frontend/js/app.js"></script>
 </body>
 </html>
