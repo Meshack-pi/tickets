@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TicketHive - Book Ticket</title>
+  <link rel="stylesheet" href="/frontend/css/styles.css" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">🎟 TicketHive</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="event-details.html">Events</a></li>
+      <li><a href="booking.html" class="active-link">Book</a></li>
+      <li><a href="my-bookings.html">My Bookings</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">Home</a> / <a href="event-details.html">Events</a> / Book Ticket</div>
+    <h1>Book Your Ticket</h1>
+    <p>Fill in your details to complete the booking</p>
+  </div>
+
+  <div class="booking-container">
+
+    <!-- BOOKING FORM -->
+    <div id="bookingForm">
+      <div class="booking-card">
+        <div class="booking-card-header">
+          <h2 id="bookingEventName">Event Name</h2>
+          <p>📅 <span id="bookingEventDate"></span> &nbsp;|&nbsp; 📍 <span id="bookingEventVenue"></span></p>
+        </div>
+
+        <div class="booking-form">
+          <div class="form-group">
+            <label for="userName">Full Name</label>
+            <input type="text" id="nameInput" placeholder="e.g. Alice Mwangi" />
+            <div class="error-msg" id="nameError">Please enter your full name.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="userEmail">Email Address</label>
+            <input type="email" id="emailInput" placeholder="e.g. alice@gmail.com" />
+            <div class="error-msg" id="emailError">Please enter a valid email address.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="userPhone">Phone Number</label>
+            <input type="text" id="phoneInput" placeholder="e.g. 0712345678" />
+            <div class="error-msg" id="phoneError">Please enter your phone number.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="ticketQty">Number of Tickets</label>
+            <select id="ticketQty">
+              <option value="1">1 Ticket</option>
+              <option value="2">2 Tickets</option>
+              <option value="3">3 Tickets</option>
+              <option value="4">4 Tickets</option>
+              <option value="5">5 Tickets</option>
+            </select>
+          </div>
+
+          <!-- ORDER SUMMARY -->
+          <div class="order-summary">
+            <h3>Order Summary</h3>
+            <div class="summary-row"><span>Event</span><span id="summaryEvent">—</span></div>
+            <div class="summary-row"><span>Seat</span><span id="summarySeat">—</span></div>
+            <div class="summary-row"><span>Quantity</span><span id="summaryQty">1</span></div>
+            <div class="summary-row"><span>Price per Ticket</span><span id="summaryPrice">—</span></div>
+            <div class="summary-row total"><span>Total</span><span id="summaryTotal">—</span></div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn-primary">Confirm Booking</button>
+            <button class="btn-secondary" onclick="history.back()">Go Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS MESSAGE -->
+    <div class="success-box" id="successBox">
+      <div class="success-icon">🎉</div>
+      <h2>Booking Confirmed!</h2>
+      <p>Thank you, <strong id="confirmedName"></strong>!</p>
+      <p>Your ticket for <strong id="confirmedEvent"></strong> has been booked.</p>
+      <div class="booking-id" id="confirmedId"></div>
+      <p style="font-size:0.82rem;color:#999;margin-bottom:20px">
+        Save your Booking ID above to view or cancel your booking.
+      </p>
+      <div style="display:flex;gap:12px;justify-content:center">
+        <button class="btn-primary" onclick="location.href='my-bookings.html'">View My Bookings</button>
+        <button class="btn-secondary" onclick="location.href='index.html'">Back to Home</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 <span>TicketHive</span> &mdash; Built with Hash Table · Queue · Tree · Quick Sort · Binary Search</p>
+  </footer>
+
+  <script src="/frontend/js/app.js"></script>
+</body>
+</html>

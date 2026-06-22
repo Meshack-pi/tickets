@@ -1,58 +1,79 @@
 [
-  { 
-    "id": 1, 
-    "name": "Nairobi Fight Nights", 
-    "date": "2026-06-02", 
-    "venue": "The Alchemist Westlands", 
-    "price": 1500, 
-    "rating": 4.3 
+  {
+    "id": 1,
+    "name": "Nairobi Fight Nights",
+    "category": "Sports",
+    "date": "2026-06-02",
+    "venue": "The Alchemist Westlands",
+    "price": 1500,
+    "rating": 4.3,
+    "popularity": 82,
+    "seats": 85
   },
-  { 
-    "id": 2, 
-    "name": "Blankets & Wine", 
-    "date": "2026-06-07", 
-    "venue": "Laureates Garden Kasarani", 
-    "price": 3500, 
-    "rating": 4.7 
+  {
+    "id": 2,
+    "name": "Blankets & Wine",
+    "category": "Music",
+    "date": "2026-06-07",
+    "venue": "Laureates Garden Kasarani",
+    "price": 3500,
+    "rating": 4.7,
+    "popularity": 95,
+    "seats": 42
   },
-  { 
-    "id": 3, 
-    "name": "The Saturday Social", 
-    "date": "2026-06-27", 
-    "venue": "Ngong Racecourse", 
-    "price": 1900, 
-    "rating": 4.4 
+  {
+    "id": 3,
+    "name": "The Saturday Social",
+    "category": "Comedy",
+    "date": "2026-06-27",
+    "venue": "Ngong Racecourse",
+    "price": 1900,
+    "rating": 4.4,
+    "popularity": 78,
+    "seats": 120
   },
-  { 
-    "id": 4, 
-    "name": "Masaku Sevens Rugby", 
-    "date": "2026-07-04", 
-    "venue": "Machakos Stadium", 
-    "price": 1000, 
-    "rating": 4.5 
+  {
+    "id": 4,
+    "name": "Masaku Sevens Rugby",
+    "category": "Sports",
+    "date": "2026-07-04",
+    "venue": "Machakos Stadium",
+    "price": 1000,
+    "rating": 4.5,
+    "popularity": 90,
+    "seats": 200
   },
-  { 
-    "id": 5, 
-    "name": "Agave Affair", 
-    "date": "2026-07-25", 
-    "venue": "KICC Grounds", 
-    "price": 2000, 
-    "rating": 4.2 
+  {
+    "id": 5,
+    "name": "Agave Affair",
+    "category": "Conference",
+    "date": "2026-07-25",
+    "venue": "KICC Grounds",
+    "price": 2000,
+    "rating": 4.2,
+    "popularity": 72,
+    "seats": 65
   },
-  { 
-    "id": 6, 
-    "name": "Sol Fest", 
-    "date": "2026-12-19", 
-    "venue": "Uhuru Gardens Grounds", 
-    "price": 3526, 
-    "rating": 4.9 
+  {
+    "id": 6,
+    "name": "Sol Fest",
+    "category": "Music",
+    "date": "2026-12-19",
+    "venue": "Uhuru Gardens Grounds",
+    "price": 3526,
+    "rating": 4.9,
+    "popularity": 98,
+    "seats": 150
   },
-  { 
-    "id": 7, 
-    "name": "Beneath The Baobabs Festival", 
-    "date": "2026-12-30", 
-    "venue": "Kilifi Creek Grounds", 
-    "price": 6000, 
-    "rating": 4.8 
+  {
+    "id": 7,
+    "name": "Beneath The Baobabs Festival",
+    "category": "Music",
+    "date": "2026-12-30",
+    "venue": "Kilifi Creek Grounds",
+    "price": 6000,
+    "rating": 4.8,
+    "popularity": 97,
+    "seats": 30
   }
 ]

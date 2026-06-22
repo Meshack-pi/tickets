@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TicketHive - Home</title>
+  <link rel="stylesheet" href="/frontend/css/styles.css" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">🎟 TicketHive</div>
+    <ul>
+      <li><a href="index.html" class="active-link">Home</a></li>
+      <li><a href="event-details.html">Events</a></li>
+      <li><a href="booking.html">Book</a></li>
+      <li><a href="my-bookings.html">My Bookings</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Find Your Next <span>Event</span></h1>
+    <p>Browse concerts, sports, festivals and more. Book your seat in seconds.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">7</div>
+        <div class="label">Events</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">7</div>
+        <div class="label">Venues</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">692</div>
+        <div class="label">Seats Available</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH AND FILTERS -->
+  <div class="controls">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search by event, venue or category..." />
+      <button>Search</button>
+    </div>
+    <div class="filters">
+      <span>Sort by:</span>
+      <button class="filter-btn active" data-sort="default">All</button>
+      <button class="filter-btn" data-sort="price">Price ↑</button>
+      <button class="filter-btn" data-sort="date">Date</button>
+      <button class="filter-btn" data-sort="popularity">🔥 Popular</button>
+    </div>
+  </div>
+
+  <!-- EVENTS LISTING -->
+  <div class="events-section">
+    <div class="section-header">
+      <h2>Upcoming Events <span id="eventCount"></span></h2>
+    </div>
+    <div class="events-grid" id="eventsGrid"></div>
+    <div class="no-results" id="noResults">
+      <p>😕 No events found. Try a different search.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 <span>TicketHive</span> &mdash; Built with Hash Table · Queue · Tree · Quick Sort · Binary Search</p>
+  </footer>
+
+  <script src="/frontend/js/app.js"></script>
+</body>
+</html>

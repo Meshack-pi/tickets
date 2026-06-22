@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TicketHive - Event Details</title>
+  <link rel="stylesheet" href="/frontend/css/styles.css" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">🎟 TicketHive</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="event-details.html" class="active-link">Events</a></li>
+      <li><a href="booking.html">Book</a></li>
+      <li><a href="my-bookings.html">My Bookings</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Event Details</div>
+    <h1>Event Details</h1>
+    <p>Select a seat and proceed to booking</p>
+  </div>
+
+  <!-- DETAILS CONTENT (filled by JS) -->
+  <div class="details-container">
+    <div id="detailsContent"></div>
+
+    <!-- SEAT MAP -->
+    <div class="seat-map-section">
+      <h3>🪑 Select Your Seat</h3>
+      <p>Click an available seat to select it. Green = available, Red = booked, Yellow = selected.</p>
+
+      <div class="seat-legend">
+        <div class="legend-item"><div class="legend-box available"></div> Available</div>
+        <div class="legend-item"><div class="legend-box booked"></div> Booked</div>
+        <div class="legend-item"><div class="legend-box selected"></div> Selected</div>
+      </div>
+
+      <div id="seatMap"></div>
+      <div class="selected-info" id="selectedInfo"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 <span>TicketHive</span> &mdash; Built with Hash Table · Queue · Tree · Quick Sort · Binary Search</p>
+  </footer>
+
+  <script src="/frontend/js/app.js"></script>
+</body>
+</html>
